@@ -315,6 +315,7 @@ export const createCourseFormData = (
 export const uploadAllVideos = async (
   localSections: Section[],
   courseId: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getUploadVideoUrl: any
 ) => {
   const updatedSections = localSections.map((section) => ({
@@ -353,6 +354,7 @@ async function uploadVideo(
   chapter: Chapter,
   courseId: string,
   sectionId: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getUploadVideoUrl: any
 ) {
   const file = chapter.video as File;
