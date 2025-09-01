@@ -1,7 +1,10 @@
+import NonDashboardNavBar from "@/components/NonDashboardNavBar";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="text-3xl text-red-500">hiew</div>
+    <div className="nondashboard-layout">
+      <NonDashboardNavBar/>
+      </div>
   );
 }

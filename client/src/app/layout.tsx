@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import {DM_Sans} from "next/font/google";
 import "./globals.css";
+import Providers from "./providers";
 
 
 const dmSans = DM_Sans({
@@ -25,8 +26,10 @@ export default function RootLayout({
       <body
         className={`${dmSans.className}`}
       >
-        {children}
-      </body>
+        <Providers>
+          {children}
+        </Providers>
+p      </body>
     </html>
   );
 }
