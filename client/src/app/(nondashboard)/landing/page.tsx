@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCarousel } from "@/hooks/use-carousel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useGetCoursesQuery } from "@/state/api";
 
 const LoadingSkeleton = () => {
     return (
@@ -41,6 +42,8 @@ const LoadingSkeleton = () => {
 }
 const Landing = () => {
   const currentImage = useCarousel({ totalImages: 3 });
+  const { data: courses, isLoading, isError } = useGetCoursesQuery({});
+  console.log(courses);
   return (
     <motion.div
       initial={{
