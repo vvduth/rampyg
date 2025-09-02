@@ -7,9 +7,9 @@ const NonDashBoardLayout = ({ children }: {
     children: React.ReactNode
 }) => {
   return (
-    <div className='nondashboard-layout'>
+    <div className="nondashboard-layout">
         <NonDashboardNavBar />
-        <main className='nondashboard-layout__main'>
+        <main className="nondashboard-layout__main">
             {children}
         </main>
         <Footer />

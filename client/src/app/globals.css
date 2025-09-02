@@ -214,7 +214,7 @@ input[type="color"] {
 
 /* Search Page */
 .search {
-  @apply flex flex-col bg-background text-foreground h-full mx-auto w-3/4;
+  @apply flex flex-col  h-full mx-auto w-3/4;
 }
 
 .search__title {
