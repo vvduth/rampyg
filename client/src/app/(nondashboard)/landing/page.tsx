@@ -8,8 +8,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useGetCoursesQuery } from "@/state/api";
 import CourseCardSearch from "@/components/CourseCardSearch";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 const LoadingSkeleton = () => {
+  
     return (
         <div className="landing-skeleton">
             <div className="landing-skeleton__hero">
