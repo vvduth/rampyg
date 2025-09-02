@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import {DM_Sans} from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
+import { ClerkProvider } from "@clerk/nextjs";
 
 
 const dmSans = DM_Sans({
@@ -22,7 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <ClerkProvider>
+      <html lang="en">
       <body
         className={`${dmSans.className}`}
       >
@@ -31,5 +32,6 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
+    </ClerkProvider>
   );
 }
