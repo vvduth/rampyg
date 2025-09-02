@@ -26,13 +26,17 @@ const NonDashboardNavBar = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="nondashboard-navbar__actions">
-        <button className="nondashboard-navbar__notification-button">
-          <span className="nondashboard-navbar__notification-indicator"></span>
-          <Bell size={18} className="nondashboard-navbar__notification-icon" />
-        </button>
-        {/* sign in button goes here */}
+
+        <div className="nondashboard-navbar__actions">
+          <button className="nondashboard-navbar__notification-button">
+            <span className="nondashboard-navbar__notification-indicator"></span>
+            <Bell
+              size={18}
+              className="nondashboard-navbar__notification-icon"
+            />
+          </button>
+          {/* sign in button goes here */}
+        </div>
       </div>
     </nav>
   );

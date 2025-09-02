@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useCarousel } from "@/hooks/use-carousel";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetCoursesQuery } from "@/state/api";
+import CourseCardSearch from "@/components/CourseCardSearch";
+import { useRouter } from "next/navigation";
 
 const LoadingSkeleton = () => {
     return (
@@ -41,9 +43,22 @@ const LoadingSkeleton = () => {
     )
 }
 const Landing = () => {
+  const router = useRouter();
   const currentImage = useCarousel({ totalImages: 3 });
   const { data: courses, isLoading, isError } = useGetCoursesQuery({});
-  console.log(courses);
+
+  const handleCourseClick = (courseId: string) => {
+    router.push(`/search?id=${courseId}`)
+  }
+
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
+
+  if (isError) {
+    return <div>Error loading courses</div>;
+  }
+
   return (
     <motion.div
       initial={{
@@ -131,6 +146,30 @@ const Landing = () => {
         </div>
         <div className="landing__courses">
             {/* courses display goes here */}
+            {courses && courses.slice(0, 4).map((course, index) => (
+              <motion.div
+                key={course.courseId}
+                initial={{
+                  opacity: 0,
+                  y: 50,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.2,
+                }}
+                viewport={{amount: 0.4}}
+                
+              >
+                <CourseCardSearch 
+                  course={course}
+                  onClick={() => handleCourseClick(course.courseId)}
+                />
+              </motion.div>
+            ))}
         </div>
       </motion.div>
     </motion.div>

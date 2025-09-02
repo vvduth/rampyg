@@ -4,4 +4,5 @@ asset-download
 
 ducth@DucPC MINGW64 ~/Downloads
 java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb -dbPath C:/Users/ducth/git_repos/rampyg/backup
+
 /server/node_modules

@@ -12,7 +12,7 @@ export function cn(...inputs: ClassValue[]) {
 export function formatPrice(cents: number | undefined): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "USD",
+    currency: "EUR",
   }).format((cents || 0) / 100);
 }
 
