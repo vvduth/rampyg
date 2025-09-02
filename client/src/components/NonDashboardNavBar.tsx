@@ -24,6 +24,7 @@ const NonDashboardNavBar = () => {
               >
                 <span className="hidden sm:inline">Search courses</span>
                 <span className="sm:hidden">Search</span>
+                
               </Link>
               <BookOpen
                 className="nondashboard-navbar__search-icon"
