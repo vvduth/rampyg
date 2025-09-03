@@ -1,6 +1,7 @@
 "use client";
 import AppSidebar from "@/components/AppSidebar";
 import Loading from "@/components/Loading";
+import NonDashboardNavBar from "@/components/NonDashboardNavBar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
@@ -20,16 +21,18 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarProvider>
         <div className="dashboard">
+          <AppSidebar />
       {/* sidebar will go here */}
       <div className="dashboard__content">
         {/* chapter sidebar will go here */}
-        <AppSidebar />
+        
         <div
           className={cn("dashboard__main")}
           style={{
             height: "100vh",
           }}
         >
+          <NonDashboardNavBar />
           <main className="dashboard__body">{children}</main>
         </div>
       </div>
