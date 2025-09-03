@@ -5,7 +5,7 @@ import cors from "cors"
 import morgan from "morgan"
 import helmet from "helmet"
 import * as dynamoose from "dynamoose"
-import { createClerkClient } from "@clerk/express"
+import { clerkMiddleware, createClerkClient, requireAuth } from "@clerk/express"
 
 /** ROUTES import */
 import courseRoutes from "./routes/courseRoutes"
@@ -31,13 +31,14 @@ app.use(morgan("common"))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(clerkMiddleware())
 
 /** ROUTES */
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
 app.use("/courses", courseRoutes);
-app.use("/users/clerk", userClerkRoutes);
+app.use("/users/clerk",requireAuth(), userClerkRoutes);
 
 /**SERVER */
 const PORT = process.env.PORT || 5000;
