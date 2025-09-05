@@ -7,7 +7,7 @@ import React from 'react'
 import CheckoutDetailsPage from './details';
 
 const CheckoutPage = () => {
-    const { user, isLoaded } = useUser();
+    const { isLoaded } = useUser();
     const { checkoutStep } = useCheckoutNavigation();
 
     if (!isLoaded ) return <Loading />;

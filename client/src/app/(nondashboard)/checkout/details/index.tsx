@@ -4,7 +4,8 @@ import Loading from '@/components/Loading';
 import { useCurrentCourse } from '@/hooks/useCurrentCourse';
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
-
+import SignUpComponent from '@/components/SignUpComponent';
+import SignInComponent from '@/components/SignInComponent';
 const CheckoutDetailsPage = () => {
     const { course: selectedCourse, isLoading, isError } = useCurrentCourse();
     const searchParams = useSearchParams();
@@ -18,6 +19,14 @@ const CheckoutDetailsPage = () => {
       <div className='checkout-details__container'>
         <div className='checkout-details__preview'>
           <CoursePreview course={selectedCourse} />
+        </div>
+        {/* Guest checkout section */}
+        <div className='checkout-details__auth'>
+          {showSignUp ? (
+            <SignUpComponent />
+          ): (
+            <SignInComponent />
+          )}
         </div>
       </div>
     </div>

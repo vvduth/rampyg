@@ -8,22 +8,23 @@ const SignInComponent = () => {
   const searchParams = useSearchParams();
   const { user } = useUser();
   const isCheckoutPage = searchParams.get("showSignUp") !== null;
-  const courseId = searchParams.get("courseId");
+  const courseId = searchParams.get("id");
 
   const signUpUrl = isCheckoutPage
     ? `/checkout?step=1&id=${courseId}&showSignUp=true`
     : "/signup";
-  
-  const getRedirecturl = () => {
+
+  const getRedirectUrl = () => {
     if (isCheckoutPage) {
-      return `/checkout?step=2&id=${courseId}`
+      return `/checkout?step=2&id=${courseId}&showSignUp=true`;
     }
+
     const userType = user?.publicMetadata?.userType as string;
     if (userType === "teacher") {
       return "/teacher/courses";
     }
     return "/user/courses";
-  }
+  };
   return (
     <div>
       <SignIn
@@ -34,7 +35,7 @@ const SignInComponent = () => {
           },
         }}
         signUpUrl={signUpUrl}
-        forceRedirectUrl={getRedirecturl()}
+        forceRedirectUrl={getRedirectUrl()}
         routing="hash"
         afterSignOutUrl={"/"}
       />

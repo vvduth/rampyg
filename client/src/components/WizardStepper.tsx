@@ -2,12 +2,13 @@ import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import React from "react";
 
-const WizardStepper = ({ currentStep }: { currentStep: number }) => {
+const WizardStepper = ({ currentStep }: WizardStepperProps) => {
+  console.log("Current Step:", currentStep); // Debugging line to check currentStep value
   return (
-    <div className="wizard-stepper">
+       <div className="wizard-stepper">
       <div className="wizard-stepper__container">
         {[1, 2, 3].map((step, index) => (
-          <React.Fragment key={index}>
+          <React.Fragment key={step}>
             <div className="wizard-stepper__step">
               <div
                 className={cn("wizard-stepper__circle", {
@@ -32,16 +33,16 @@ const WizardStepper = ({ currentStep }: { currentStep: number }) => {
               >
                 {step === 1 && "Details"}
                 {step === 2 && "Payment"}
-                {step === 3 && "Complete"}
+                {step === 3 && "Completion"}
               </p>
             </div>
             {index < 2 && (
-                <div
-                 className={cn("wizard-stepper__line", {
-                    "wizard-stepper__line--completed": currentStep > step,
-                    "wizard-stepper__line--incomplete": currentStep <= step,
-                 })}
-                />
+              <div
+                className={cn("wizard-stepper__line", {
+                  "wizard-stepper__line--completed": currentStep > step,
+                  "wizard-stepper__line--incomplete": currentStep <= step,
+                })}
+              />
             )}
           </React.Fragment>
         ))}
