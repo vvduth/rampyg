@@ -26,11 +26,15 @@ const customBaseQuery = async (
 
     if (result.error) {
       const errorData = result.error.data;
-      const errorMessage = errorData?.message || result.error.status.toString() || "An error occurred";
+      const errorMessage =
+        errorData?.message ||
+        result.error.status.toString() ||
+        "An error occurred";
       toast.error("Error: " + errorMessage);
     }
 
-    const isMutationRequest = (args as FetchArgs).method &&  (args as FetchArgs).method !== "GET"
+    const isMutationRequest =
+      (args as FetchArgs).method && (args as FetchArgs).method !== "GET";
     if (isMutationRequest) {
       const successMessage = result.data?.message;
       if (successMessage) {
@@ -41,10 +45,10 @@ const customBaseQuery = async (
     if (result.data) {
       result.data = result.data.data;
     } else if (
-      result.error?.status === 204 || 
+      result.error?.status === 204 ||
       result.meta?.response?.status === 24
     ) {
-      return {data: null}
+      return { data: null };
     }
 
     return result;
@@ -81,8 +85,22 @@ export const api = createApi({
       query: (id) => `/courses/${id}`,
       providesTags: (result, error, id) => [{ type: "Courses", id }],
     }),
+    createStripePaymentIntent: build.mutation<
+      { clientSecret: string },
+      { amount: number }
+    >({
+      query: ({ amount }) => ({
+        url: "transactions/stripe/payment-intent",
+        method: "POST",
+        body: { amount },
+      }),
+    }),
   }),
 });
 
-export const { useUpdateUserMutation, useGetCoursesQuery, useGetCourseQuery } =
-  api;
+export const {
+  useUpdateUserMutation,
+  useGetCoursesQuery,
+  useGetCourseQuery,
+  useCreateStripePaymentIntentMutation,
+} = api;
