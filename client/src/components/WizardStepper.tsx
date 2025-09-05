@@ -3,7 +3,6 @@ import { Check } from "lucide-react";
 import React from "react";
 
 const WizardStepper = ({ currentStep }: WizardStepperProps) => {
-  console.log("Current Step:", currentStep); // Debugging line to check currentStep value
   return (
        <div className="wizard-stepper">
       <div className="wizard-stepper__container">

@@ -16,7 +16,6 @@ export const useCheckoutNavigation = () => {
       const newStep = Math.min(Math.max(1, step), 3);
       const showSignUp = isSignedIn ? "true" : "false";
 
-      console.log("Course ID:", courseId);
 
       router.push(
         `/checkout?step=${newStep}&id=${courseId}&showSignUp=${showSignUp}`,
