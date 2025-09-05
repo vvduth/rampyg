@@ -1,3 +1,4 @@
+"use client"
 import Loading from '@/components/Loading';
 import WizardStepper from '@/components/WizardStepper';
 import { useCheckoutNavigation } from '@/hooks/useCheckoutNavigation';
