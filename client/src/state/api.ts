@@ -1,3 +1,4 @@
+import { deleteCourse, updateCourse } from './../../../server/src/controllers/courseController';
 import { createTransaction } from './../../../server/src/controllers/transactionController';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -75,6 +76,10 @@ export const api = createApi({
       }),
       invalidatesTags: ["Users"],
     }),
+
+    /**
+     * Courses API
+     */
     getCourses: build.query<Course[], { category?: string }>({
       query: ({ category }) => ({
         url: "courses",
@@ -86,6 +91,46 @@ export const api = createApi({
       query: (id) => `/courses/${id}`,
       providesTags: (result, error, id) => [{ type: "Courses", id }],
     }),
+    updateCourse: build.mutation<Course,
+    {
+      courseId: string;
+      formData: FormData
+    }>({
+      query: ({ courseId, formData }) => ({
+        url: `courses/${courseId}`,
+        method: "PUT",
+        body: formData,
+      }),
+      invalidatesTags: (result, error, { courseId }) => [
+        {type: "Courses", id: courseId}
+      ]
+    }),
+    createCourse: build.mutation<Course, {
+      teacherId: string;
+      teacherName: string;
+    }>({
+      query: (body) => ({
+        url: `courses`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Courses"],
+    }),
+    deleteCourse: build.mutation<{
+      message: string,
+    }, string>({
+      query: (courseId) => ({
+        url: `courses/${courseId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result, error, courseId) => [
+        { type: "Courses", id: courseId },
+      ],
+    }),
+
+     /**
+     * Transactions API
+     */
     getTransactions: build.query<Transaction[], string>({
       query: (userId)  => `transactions?userId=${userId}`,
     }),
@@ -99,6 +144,9 @@ export const api = createApi({
         body: { amount },
       }),
     }),
+
+
+   
     createTransaction: build.mutation<Transaction, Partial<Transaction>>({
       query: (transaction) => ({
         url: "transactions",
@@ -113,6 +161,9 @@ export const {
   useUpdateUserMutation,
   useGetCoursesQuery,
   useGetCourseQuery,
+  useUpdateCourseMutation,
+  useCreateCourseMutation,
+  useDeleteCourseMutation,
   useGetTransactionsQuery,
   useCreateStripePaymentIntentMutation,
   useCreateTransactionMutation
