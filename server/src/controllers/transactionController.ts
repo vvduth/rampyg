@@ -70,7 +70,7 @@ export const createTransaction = async (
     await newTransaction.save();
 
     // 3. create user course progress
-    const initialProgress = new UserCourseProgress({
+     const initialProgress = new UserCourseProgress({
       userId,
       courseId,
       enrollmentDate: new Date().toISOString(),
@@ -79,7 +79,7 @@ export const createTransaction = async (
         sectionId: section.sectionId,
         chapters: section.chapters.map((chapter: any) => ({
           chapterId: chapter.chapterId,
-          cpmpleted: false,
+          completed: false,
         })),
       })),
       lastAccessedTimestamp: new Date().toISOString(),
