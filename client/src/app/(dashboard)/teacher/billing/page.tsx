@@ -13,7 +13,7 @@ import { useGetTransactionsQuery } from "@/state/api";
 import { useUser } from "@clerk/nextjs";
 import React, { useState } from "react";
 
-const UserBillingPage = () => {
+const TeacherBillingPage = () => {
   const [paymentType, setPaymentType] = useState("all");
   const { user, isLoaded } = useUser();
   const { data: transactions, isLoading: isLoadingTransactions } =
@@ -21,7 +21,7 @@ const UserBillingPage = () => {
       // make api call only when user is loaded
       skip: !isLoaded || !user,
     });
-   
+    
 
   const filteredData =
     transactions?.filter((transaction) => {
@@ -36,7 +36,7 @@ const UserBillingPage = () => {
   return (
     <div className="billing">
       <div className="billing__container">
-        <h2 className="billing__title">Billing History</h2>
+        <h2 className="billing__title">Teacher Billing History</h2>
         <div className="billing__filters">
           <Select value={paymentType} onValueChange={setPaymentType}>
             <SelectTrigger className="billing__select">
@@ -107,4 +107,4 @@ const UserBillingPage = () => {
   );
 };
 
-export default UserBillingPage;
+export default TeacherBillingPage;
