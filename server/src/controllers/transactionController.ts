@@ -1,4 +1,3 @@
-import { sectionSchema } from "./../../../asset-download/client/lib/schemas";
 import { Request, Response } from "express";
 import Stripe from "stripe";
 import dotenv from "dotenv";

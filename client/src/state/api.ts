@@ -1,3 +1,4 @@
+import { createTransaction } from './../../../server/src/controllers/transactionController';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BaseQueryApi, FetchArgs } from "@reduxjs/toolkit/query";
@@ -95,6 +96,13 @@ export const api = createApi({
         body: { amount },
       }),
     }),
+    createTransaction: build.mutation<Transaction, Partial<Transaction>>({
+      query: (transaction) => ({
+        url: "transactions",
+        method: "POST",
+        body: transaction,
+      }),
+    })
   }),
 });
 
@@ -103,4 +111,5 @@ export const {
   useGetCoursesQuery,
   useGetCourseQuery,
   useCreateStripePaymentIntentMutation,
+  useCreateTransactionMutation
 } = api;

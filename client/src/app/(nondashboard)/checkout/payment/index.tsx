@@ -7,22 +7,55 @@ import { useCheckoutNavigation } from "@/hooks/useCheckoutNavigation";
 import CoursePreview from "@/components/CoursePreview";
 import { CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCreateTransactionMutation } from "@/state/api";
+import { toast } from "sonner";
 
 const PaymentPageContent = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  // const [createTranasction] = useCreateTransactionMutation();
+  const [createTransaction] = useCreateTransactionMutation();
   const { navigateToStep } = useCheckoutNavigation();
   const { course, courseId } = useCurrentCourse();
   const { user } = useUser();
   const { signOut } = useClerk();
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!stripe || !elements ) {
+      toast.error("Stripe has not loaded yet. Please try again later.");
+      return;
+    }
+    const result = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${process.env.NEXT_PUBLIC_STRIPE_REDIRECT_URL}?id=${courseId}`,
+      },
+      redirect: "if_required",
+    })
+    if (result.paymentIntent?.status === "succeeded") {
+      const transactionData : Partial<Transaction> = {
+        transactionId: result.paymentIntent.id,
+        userId: user?.id ,
+        courseId: courseId,
+        paymentProvider: "stripe",
+        amount: course?.price || 0,
+      }
+      await createTransaction(transactionData);
+      navigateToStep(3);
+    }
+  }
+
+  const handleSignOutandNavigate = async () => {
+    await signOut();
+    navigateToStep(1);
+  }
+
   if (!course) {
     return null;
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {}
+  
 
   return <div className="payment">
     <div className="payment__container">
@@ -59,7 +92,7 @@ const PaymentPageContent = () => {
     {/* navigation buttons go here */}
     <div className="payment__actions">
       <Button className="hover:bg-white-50/10"
-        //onClick={handleSignOutandNavigate}
+        onClick={handleSignOutandNavigate}
         variant={"outline"}
         type="button"
       >Switch account</Button>
