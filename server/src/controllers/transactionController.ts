@@ -70,7 +70,7 @@ export const createTransaction = async (
     await newTransaction.save();
 
     // 3. create user course progress
-     const initialProgress = new UserCourseProgress({
+    const initialProgress = new UserCourseProgress({
       userId,
       courseId,
       enrollmentDate: new Date().toISOString(),
@@ -88,21 +88,44 @@ export const createTransaction = async (
 
     // 4. add user enrollement to course
     await Course.update(
-        {courseId},
-        {
-            $ADD: {
-                enrollments: [{userId}]
-            }
-        }
-    )
+      { courseId },
+      {
+        $ADD: {
+          enrollments: [{ userId }],
+        },
+      }
+    );
     res.json({
-        message: "Purchase successful and course enrolled",
-        data: {
-            transaction: newTransaction,
-            courseProgress: initialProgress,
-        }
+      message: "Purchase successful and course enrolled",
+      data: {
+        transaction: newTransaction,
+        courseProgress: initialProgress,
+      },
     });
   } catch (error) {
-    res.status(500).json({ message: "Failed to create transaction and enrollment", error });
+    res
+      .status(500)
+      .json({ message: "Failed to create transaction and enrollment", error });
+  }
+};
+
+export const listTransactions = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { userId } = req.query;
+  try {
+    const transactions = userId
+      ? await Transaction.query("userId")
+          .eq(userId)
+          .exec()
+      : await Transaction.scan().exec();
+
+    res.json({
+      message: "Transactions retrieved successfully",
+      data: transactions,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to retrieve transactions", error });
   }
 };
