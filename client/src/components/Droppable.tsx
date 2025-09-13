@@ -16,6 +16,7 @@ export default function DroppableComponent() {
   const dispatch = useAppDispatch();
   const { sections } = useAppSelector((state) => state.global.courseEditor);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSectionDragEnd = (result: any) => {
     if (!result.destination) return;
 

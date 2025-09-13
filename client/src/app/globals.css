@@ -10,7 +10,7 @@
   /* customgreys */
   --color-customgreys-primarybg: #14121A; /* deep plum-ink */
   --color-customgreys-secondarybg: #1E1A26; /* eggplant */
-  --color-customgreys-darkGrey: #F5EEF7; /* soft lilac surface */
+  --color-customgreys-darkGrey: #2A2532; /* darker plum surface */
   --color-customgreys-darkerGrey: #2B2433; /* muted plum */
   --color-customgreys-dirtyGrey: #9A8FA6; /* lavender gray */
 
@@ -92,7 +92,7 @@ body,
   --primary: oklch(0.63 0.21 300);               /* violet */
   --primary-foreground: oklch(0.98 0.02 300);
   --secondary: oklch(0.92 0.06 175);             /* mint */
-  --secondary-foreground: oklch(0.24 0.04 175);
+  --secondary-foreground: oklch(76.052% 0.14315 172.17);
   --muted: oklch(0.94 0.02 292);
   --muted-foreground: oklch(0.52 0.03 292);
   --accent: oklch(0.95 0.03 300);

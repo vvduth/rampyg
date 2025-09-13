@@ -87,7 +87,7 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
             placeholder={placeholder}
             {...field}
             rows={3}
-            className={`border-none bg-customgreys-darkGrey p-4 ${inputClassName}`}
+            className={`border-none  p-4 ${inputClassName}`}
           />
         );
       case "select":
@@ -107,7 +107,7 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
                 <SelectItem
                   key={option.value}
                   value={option.value}
-                  className={`cursor-pointer hover:!bg-gray-100 hover:!text-customgreys-darkGrey`}
+                  className={`cursor-pointer text-white hover:!bg-blue-600 hover:!text-white transition-colors duration-200`}
                 >
                   {option.label}
                 </SelectItem>
@@ -156,7 +156,7 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
             type="number"
             placeholder={placeholder}
             {...field}
-            className={`border-none bg-customgreys-darkGrey p-4 ${inputClassName}`}
+            className={`border-none p-4 ${inputClassName}`}
             disabled={disabled}
           />
         );
