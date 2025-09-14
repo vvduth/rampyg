@@ -29,6 +29,7 @@ export default function DroppableComponent() {
     dispatch(setSections(updatedSections));
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChapterDragEnd = (result: any, sectionIndex: number) => {
     if (!result.destination) return;
 
@@ -143,6 +144,7 @@ const SectionHeader = ({
 }: {
   section: Section;
   sectionIndex: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dragHandleProps: any;
 }) => {
   const dispatch = useAppDispatch();
@@ -195,6 +197,7 @@ const ChapterItem = ({
   chapter: Chapter;
   chapterIndex: number;
   sectionIndex: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   draggableProvider: any;
 }) => {
   const dispatch = useAppDispatch();

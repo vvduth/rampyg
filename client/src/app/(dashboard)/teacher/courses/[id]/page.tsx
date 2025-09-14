@@ -18,6 +18,8 @@ import Header from "@/components/Header";
 import { CustomFormField } from "@/components/CustomFormField";
 import { Button } from "@/components/ui/button";
 import DroppableComponent from "@/components/Droppable";
+import ChapterModal from "./ChapterModal";
+import SectionModal from "./SectionModal";
 const CourseEditorPage = () => {
   const router = useRouter();
   const params = useParams();
@@ -189,6 +191,8 @@ const CourseEditorPage = () => {
           </div>
         </form>
       </Form>
+      <ChapterModal />
+      <SectionModal />
     </div>
   );
 };
