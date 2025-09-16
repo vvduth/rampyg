@@ -3,7 +3,6 @@ import AppSidebar from "@/components/AppSidebar";
 import ChaptersSidebar from "@/components/courses/[courseId]/ChaptersSidebar";
 import Loading from "@/components/Loading";
 import Navbar from "@/components/Navbar";
-import NonDashboardNavBar from "@/components/NonDashboardNavBar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
@@ -39,7 +38,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         {/* chapter sidebar will go here */}
         {courseId && <ChaptersSidebar />}
         <div
-          className={cn("dashboard__main")}
+          className={cn("dashboard__main",
+            isCoursePage && "dashboard__main--not-course"
+          )}
           style={{
             height: "100vh",
           }}
