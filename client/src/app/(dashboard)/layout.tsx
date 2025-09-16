@@ -1,5 +1,6 @@
 "use client";
 import AppSidebar from "@/components/AppSidebar";
+import ChaptersSidebar from "@/components/courses/[courseId]/ChaptersSidebar";
 import Loading from "@/components/Loading";
 import Navbar from "@/components/Navbar";
 import NonDashboardNavBar from "@/components/NonDashboardNavBar";
@@ -36,7 +37,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       {/* sidebar will go here */}
       <div className="dashboard__content">
         {/* chapter sidebar will go here */}
-        
+        {courseId && <ChaptersSidebar />}
         <div
           className={cn("dashboard__main")}
           style={{
