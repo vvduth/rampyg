@@ -134,6 +134,21 @@ export const api = createApi({
         { type: "Courses", id: courseId },
       ],
     }),
+    getUploadVideoUrl: build.mutation<
+    {uploadUrl: string; video: string}, 
+    {
+      courseId: string;
+      chapterId: string;
+      sectionId: string;
+      fileName: string;
+      fileType: string;
+    }>({
+      query: ({ courseId, chapterId, sectionId, fileName, fileType }) => ({
+        url: `courses/${courseId}/sections/${sectionId}/chapters/${chapterId}/get-upload-url`,
+        method: "POST",
+        body: { fileName, fileType },
+      })
+    }),
 
     /**
      * Transactions API
@@ -215,6 +230,7 @@ export const api = createApi({
         }
       },
     }),
+    
   }),
 });
 
@@ -225,6 +241,7 @@ export const {
   useUpdateCourseMutation,
   useCreateCourseMutation,
   useDeleteCourseMutation,
+  useGetUploadVideoUrlMutation,
   useGetTransactionsQuery,
   useCreateStripePaymentIntentMutation,
   useCreateTransactionMutation,

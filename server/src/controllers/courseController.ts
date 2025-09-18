@@ -3,6 +3,10 @@ import Course from "../models/courseModel";
 import { v4 as uuidv4 } from "uuid";
 import { getAuth } from "@clerk/express";
 import { error } from "console";
+import AWS from "aws-sdk"
+
+const s3 = new AWS.S3();
+
 export const listCourses = async (
   req: Request,
   res: Response
@@ -180,5 +184,49 @@ export const deleteCourse = async (
   } catch (error) {
     console.error("Error deleting course:", error);
     res.status(500).json({ message: "Error deleting course", error });
+  }
+};
+
+export const getUploadVideoUrl = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { fileName, fileType } = req.body;
+  const { userId } = getAuth(req);
+  
+  if (!userId) {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
+
+  if (!fileName || !fileType) {
+    res.status(400).json({ message: "fileName and fileType are required" });
+    return;
+  }
+
+  try {
+    const uniqueId = uuidv4();
+    const s3Key = `videos/${uniqueId}/${fileName}`;
+
+    const s3Params = {
+      Bucket: process.env.S3_BUCKET_NAME!,
+      Key: s3Key,
+      ContentType: fileType,
+      Expires: 60 * 5, // 5 minutes
+    };
+
+    const uploadUrl = s3.getSignedUrl('putObject', s3Params);
+    const videoUrl = `${process.env.CLOUDFRONT_DOMAIN}/videos/${uniqueId}/${fileName}`;
+    
+    res.json({
+      message: "Upload URL generated successfully",
+      data: {
+        uploadUrl,
+        videoUrl
+      }
+    });
+  } catch (error) {
+    console.error("Error generating upload URL:", error);
+    res.status(500).json({ message: "Error generating upload URL", error });
   }
 };
