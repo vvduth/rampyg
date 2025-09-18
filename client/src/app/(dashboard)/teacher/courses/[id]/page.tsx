@@ -1,7 +1,9 @@
 "use client";
 import React, { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useGetCourseQuery, useUpdateCourseMutation } from "@/state/api";
+import { useGetCourseQuery, useUpdateCourseMutation,
+  useGetUploadVideoUrlMutation
+ } from "@/state/api";
 import { useAppDispatch, useAppSelector } from "@/state/redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,6 +28,7 @@ const CourseEditorPage = () => {
   const id = params.id as string;
   const { data: course, isLoading, refetch } = useGetCourseQuery(id);
   const [updateCourse] = useUpdateCourseMutation();
+  const [getUploadVideoUrl] = useGetUploadVideoUrlMutation();
 
   // upload video function here
 
@@ -60,12 +63,18 @@ const CourseEditorPage = () => {
 
   const onSubmit = async (data: CourseFormData) => {
     try {
+      const updatedSecions = await uploadAllVideos(
+        sections,
+        id, 
+        getUploadVideoUrl
+      )
       const formData = createCourseFormData(data, sections);
-      const updatedCourse = await updateCourse({
+      
+       await updateCourse({
         courseId: id,
         formData,
       }).unwrap();
-      // await uploadAllVideos(sections, updatedCourse.sections, id, uploadVideo);
+      
       refetch();
     } catch (error) {
       console.error("Failed to update course:", error);
