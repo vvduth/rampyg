@@ -6,3 +6,24 @@ ducth@DucPC MINGW64 ~/Downloads
 java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb -dbPath C:/Users/ducth/git_repos/rampyg/backup
 
 /server/node_modules
+cient/.next
+server/shared-local-instance.db
+**/node_modules/
+**/dist/
+
+.env
+client/.env.local
+client/.env.development
+client/.env.production
+server/.env
+
+client/.next/
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+
+server/shared-local-instance.db
+server/dynamodb-local-metadata.json
+shared-local-instance.db
