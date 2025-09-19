@@ -13,7 +13,9 @@ const NonDashboardNavBar = () => {
     <nav className="nondashboard-navbar">
       <div className="nondashboard-navbar__container">
         <div className="nondashboard-navbar__search">
-          <Link href="/" className="nondashboard-navbar__brand">
+          <Link href="/" className="nondashboard-navbar__brand"
+          scroll={false}
+          >
             RAMPY
           </Link>
           <div className="flex items-center gap-4">
@@ -21,6 +23,7 @@ const NonDashboardNavBar = () => {
               <Link
                 href={"/search"}
                 className="nondashboard-navbar__search-input"
+                scroll={false}
               >
                 <span className="hidden sm:inline">Search courses</span>
                 <span className="sm:hidden">Search</span>
@@ -60,10 +63,12 @@ const NonDashboardNavBar = () => {
             />
           </SignedIn>
           <SignedOut>
-            <Link href="/signin" className="nondashboard-navbar__auth-button--login">
+            <Link href="/signin" className="nondashboard-navbar__auth-button--login"
+            scroll={false}>
               Log In
             </Link>
-            <Link href="/signup" className="nondashboard-navbar__auth-button--signup">
+            <Link href="/signup" className="nondashboard-navbar__auth-button--signup"
+            scroll={false}>
               Sign Up
             </Link>
           </SignedOut>

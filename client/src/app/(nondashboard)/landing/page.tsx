@@ -98,7 +98,9 @@ const Landing = () => {
             Courses when taken will help you gain practical skills.
           </p>
           <div className="landing__cta">
-            <Link href={"/search"}>
+            <Link href={"/search"}
+              scroll={false}
+            >
               <div className="landing__cta-button">Explore Courses</div>
             </Link>
           </div>

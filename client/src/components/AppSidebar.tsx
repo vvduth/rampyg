@@ -123,6 +123,7 @@ const AppSidebar = () => {
                             <Link
                                 href={link.href}
                                 className="app-sidebar__nav-link"
+                                scroll={false}
                             >
                                 <link.icon
                                  className={
