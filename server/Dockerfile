@@ -1,39 +1,39 @@
-# use AWS lambda node js 20 base image
-FROM public.ecr.aws/lambda/nodejs:20 as build
+# Use the AWS Lambda Node.js 20 base image
+FROM public.ecr.aws/lambda/nodejs:20 AS build
 
-# set working directory
+# Set the working directory
 WORKDIR /app
 
-# copy package.json and package-lock.json
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# install dependencies
+# Install dependencies (including dev dependencies for building)
 RUN npm install
 
-# copy the rest of the application code
+# Copy the rest of your application's source code
 COPY . .
 
-# build the application
+# Build TypeScript files
 RUN npm run build
 
-# remove dev dependencies
+# Remove dev dependencies
 RUN npm prune --production
 
-# use a second stage to prepare the production image
+# Use a second stage to prepare the production image
 FROM public.ecr.aws/lambda/nodejs:20
 
-# set working directory
+# Set the working directory
 WORKDIR ${LAMBDA_TASK_ROOT}
 
-# copy buld javascript file and node_modules from the build stage
+# Copy built JavaScript files and node_modules from the build stage
 COPY --from=build /app/dist ${LAMBDA_TASK_ROOT}
 COPY --from=build /app/node_modules ${LAMBDA_TASK_ROOT}/node_modules
 
-# COPY packgage.json and package-lock.json
+# Copy package.json (optional)
 COPY --from=build /app/package*.json ${LAMBDA_TASK_ROOT}
 
-# SET the environment variables
+# Set environment variables (adjust as needed)
 ENV NODE_ENV=production
 
-# command to start lambda function
+# Command to start the Lambda function
 CMD ["index.handler"]
