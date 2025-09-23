@@ -63,14 +63,14 @@ const CourseEditorPage = () => {
 
   const onSubmit = async (data: CourseFormData) => {
     try {
-      const updatedSecions = await uploadAllVideos(
+      const updatedSections = await uploadAllVideos(
         sections,
         id, 
         getUploadVideoUrl
-      )
-      const formData = createCourseFormData(data, sections);
-      
-       await updateCourse({
+      );
+      const formData = createCourseFormData(data, updatedSections);
+
+      await updateCourse({
         courseId: id,
         formData,
       }).unwrap();
